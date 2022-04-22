@@ -7,6 +7,7 @@
             [clojure.tools.deps.util.dir :as dir])
   (:import [org.springframework.build.aws.maven
             PrivateS3Wagon SimpleStorageServiceWagon]
+           [com.google.cloud.artifactregistry.wagon ArtifactRegistryWagon]
             ;; maven-core
            [org.apache.maven.settings DefaultMavenSettingsBuilder Settings Server]
             ;; maven-settings-builder
@@ -14,6 +15,7 @@
 
 (aether/register-wagon-factory! "s3p" #(PrivateS3Wagon.))
 (aether/register-wagon-factory! "s3" #(SimpleStorageServiceWagon.))
+(aether/register-wagon-factory! "artifactregistry" #(ArtifactRegistryWagon.))
 
 (def default-repo-settings {:id "clojars"
                             :url (or (System/getenv "CLOJARS_URL") "https://clojars.org/repo")
